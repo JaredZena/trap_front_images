@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoDataService } from '../service/data/todo-data.service';
 import { Router } from '@angular/router';
+import { JwPaginationComponent } from 'jw-angular-pagination';
+import { Timestamp } from 'rxjs';
 
-export class Todo {
-  constructor(
-    public id: number,
-    public description: string,
-    public done: boolean,
-    public targetDate: Date
-  ){
-
-  }
+export interface Image {
+  id: string,
+  timestamp: any;
+  trapId: any;
+  lat: string;
+  lon: string;
+  imageStr: string;
 }
 
 @Component({
@@ -20,15 +20,7 @@ export class Todo {
 })
 export class ListTodosComponent implements OnInit {
 
-  // todos = [
-  //   new Todo(1,'Learn to dance',false,new Date()),
-  //   new Todo(2,'Become an expert to Angular',false,new Date()),
-  //   new Todo(3,'Visit South Korea',false,new Date()),
-  //   new Todo(4,'Configure punto de venta',false,new Date()),
-  //   new Todo(5,'Buy Xiaomi camera',false,new Date())
-  // ]
-
-  todos: Todo[];
+  images: Image[];
 
   message: string;
 
@@ -38,40 +30,21 @@ export class ListTodosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.refreshTodos();
+    this.refreshImages();
   }
 
-  refreshTodos(){
-    this.todoService.retrieveAllTodos('in28minutes').subscribe(
-      response => {
-        console.log(response);
-        this.todos = response;
+  refreshImages(){
+    console.log('Service has been called');
+    this.todoService.retrieveAllImages().subscribe(
+      (response: any) => {
+        this.images = response.response.data.body.images;
+        console.log(response.response.data.body.images);
       }
     );
   }
 
-  deleteTodo(id){
-    this.todoService.deleteTodo('in28minutes', id).subscribe(
-      response => {
-        console.log(response);
-        this.message = `Todo ${id} has been deleted!`;
-        console.log(`Todo ${id} has been deleted`);
-        this.refreshTodos();
-      }
-    )
-  }
-
-  updateTodo(id){
-    console.log('Update Todo');
-    this.router.navigate(['todos',id]);
-  //   this.todoService.updateTodo('in28minutes', id).subscribe(
-  //     response => {
-  //       console.log(response);
-  //       this.message = `Todo ${id} has been updated!`;
-  //       console.log(`Todo ${id} has been updated`);
-  //       this.refreshTodos();
-  //     }
-  //   )
+  seeImage(id){
+    this.router.navigate(['images', id]);
   }
 
 }

@@ -1,26 +1,22 @@
-<h1> My Todo's</h1>
+<h1> Delta images</h1>
 
 <div class="alert alert-success" *ngIf='message'>{{message}}</div>
 
 <div class="container">
 <table class="table">
-    <caption>My Todos</caption>
+    <caption>Delta images</caption>
     <thead>
         <tr>
-            <th>Description</th>
-            <th>Target Date</th>
-            <th>Is completed?</th>
-            <th>Update</th>
-            <th>Delete</th>
+            <th>Image ID</th>
+            <th>Date</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let todo of todos">
-            <td>{{todo.description}}</td>
-            <td>{{todo.targetDate | date}}</td>
-            <td>{{todo.done}}</td>
-            <td><button (click)="updateTodo(todo.id)" class="btn btn-success">Update</button></td>
-            <td><button (click)="deleteTodo(id)" class="btn btn-warning">Delete</button></td>
+        <tr *ngFor="let image of images">
+            <td>{{image.id}}</td>
+            <td *ngIf='image.timestamp != "TIMESTAMP"; else elseBlock'>{{image.timestamp*1000 | date}}</td>
+            <ng-template #elseBlock>Unknown date</ng-template>
+            <td><button (click)="seeImage(image.id)" class="btn btn-success">See image</button></td>
         </tr>
     </tbody>
 </table>

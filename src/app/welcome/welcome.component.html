@@ -1,14 +1,4 @@
 <h1>Welcome!</h1>
 <div class="container">
-        {{message}} {{name}}. You can manage your todos <a routerLink="/todos">here</a>
-</div>
-
-<div class="container">
-        Click here to get a customized welcome message
-        <button (click)="getWelcomeMessageWithPathVariable()" class="btn btn-success">Get welcome message</button>
-</div>
-
-<div class="container" *ngIf="messageFromJava">
-        <h2>Customized Java welcome message</h2>
-        {{messageFromJava}}
+        {{message}} {{name}}. You can see your images <a routerLink="/todos">here</a>
 </div>
